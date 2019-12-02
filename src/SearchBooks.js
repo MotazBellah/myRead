@@ -17,8 +17,20 @@ class SearchBooks extends Component {
       }
     }
 
+    handleCategory = (e) => {
+
+        console.log(e.target);
+    }
+
+    handleChange = (e) => {
+        console.log(e.target.value);
+        // if (this.props.Change){
+        //     this.props.Change(e.target.value)
+        // }
+    }
+
     render() {
-        const { books } = this.props
+        const { books, currentlyReading, wantToRead, read } = this.props
         return(
         <div className="search-books">
           <div className="search-books-bar">
@@ -40,18 +52,20 @@ class SearchBooks extends Component {
           <div className="search-books-results">
             <ol className="books-grid">
                 {books.map((book) => (
-                    <li>
+                    <li key={book.id}>
                       <div className="book">
                         <div className="book-top">
                           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                           <div className="book-shelf-changer">
-                            <select>
+                          <form onSubmit={this.handleCategory}>
+                            <select onChange={this.handleChange}>
                               <option value="move" disabled>Move to...</option>
                               <option value="currentlyReading">Currently Reading</option>
                               <option value="wantToRead">Want to Read</option>
                               <option value="read">Read</option>
                               <option value="none">None</option>
                             </select>
+                          </form>
                           </div>
                         </div>
                         <div className="book-title">{book.title}</div>
