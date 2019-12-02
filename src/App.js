@@ -21,7 +21,7 @@ class BooksApp extends React.Component {
   SearchBooks = (book) => {
     BooksAPI.search(book)
     .then((book) => {
-        console.log(book[0].imageLinks.smallThumbnail);
+        console.log(book[0].authors.toString());
         this.setState({
             books: book
         })
