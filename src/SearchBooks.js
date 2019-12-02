@@ -24,6 +24,7 @@ class SearchBooks extends Component {
 
     handleChange = (e) => {
         console.log(e.target.value);
+        console.log(e.target['name']);
         // if (this.props.Change){
         //     this.props.Change(e.target.value)
         // }
@@ -58,7 +59,7 @@ class SearchBooks extends Component {
                           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                           <div className="book-shelf-changer">
                           <form onSubmit={this.handleCategory}>
-                            <select onChange={this.handleChange}>
+                            <select name={book.id} onChange={this.handleChange}>
                               <option value="move" disabled>Move to...</option>
                               <option value="currentlyReading">Currently Reading</option>
                               <option value="wantToRead">Want to Read</option>

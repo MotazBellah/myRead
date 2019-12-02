@@ -31,9 +31,14 @@ class BooksApp extends React.Component {
     })
   }
 
-  // updateBooks = (book) => {
-  //   BooksAPI.update()
-  // }
+  updateBooks = (book, shelf) => {
+    BooksAPI.update(book, shelf)
+    .then((book) => {
+        this.setState({
+            currentlyReading: book
+        })
+    })
+  }
 
   render() {
     return (
@@ -47,7 +52,10 @@ class BooksApp extends React.Component {
         )} />
 
         <Route exact path='/' render={() => (
-            <BooksList />
+            <BooksList
+                currentlyReading={this.state.currentlyReading}
+                wantToRead={this.state.wantToRead}
+                read={this.state.read}/>
         )} />
 
 
