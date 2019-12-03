@@ -32,16 +32,16 @@ class BooksApp extends React.Component {
     })
   }
 
-  updateBooks = (book, shelf) => {
-    BooksAPI.update(book, shelf)
-    .then((book) => {
-        this.setState({
-            currentlyReading: book
-        })
-    })
-  }
+  // updateBooks = (book, shelf) => {
+  //   BooksAPI.update(book, shelf)
+  //   .then((book) => {
+  //       this.setState({
+  //           currentlyReading: book
+  //       })
+  //   })
+  // }
 
-  // getBooks = () => {
+  // componentDidMount(){
   //   BooksAPI.getAll()
   //   .then((books) => {
   //       this.setState({
@@ -49,15 +49,6 @@ class BooksApp extends React.Component {
   //       })
   //   })
   // }
-
-  componentDidMount(){
-    BooksAPI.getAll()
-    .then((books) => {
-        this.setState({
-            allBooks: books
-        })
-    })
-  }
 
 
   render() {
@@ -72,10 +63,7 @@ class BooksApp extends React.Component {
         )} />
 
         <Route exact path='/' render={() => (
-            <BooksList
-                currentlyReading={this.state.allBooks}
-                wantToRead={this.state.wantToRead}
-                read={this.state.read}/>
+            <BooksList />
         )} />
 
 
