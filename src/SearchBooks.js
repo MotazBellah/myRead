@@ -8,13 +8,15 @@ import serializeForm from 'form-serialize'
 class SearchBooks extends Component {
 
     handleSearch = (e) => {
-      e.preventDefault()
-      const value = serializeForm(e.target, {hash:true})
-      console.log(value['name'])
+      // e.preventDefault()
+      // const value = serializeForm(e.target, {hash:true})
+      console.log(e.target.value)
+
       // console.log(BooksAPI.search(value.name))
-      if(this.props.onSearchBook) {
-          this.props.onSearchBook(value.name)
+        if(this.props.onSearchBook) {
+              this.props.onSearchBook(e.target.value)
       }
+
     }
 
     // handleCategory = (e) => {
@@ -58,9 +60,9 @@ class SearchBooks extends Component {
                 However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                 you don't find a specific author or title. Every search is limited by search terms.
               */}
-              <form onSubmit={this.handleSearch}>
-                <input type="text" name='name' placeholder="Search by title or author"/>
-              </form>
+
+                <input  onChange={this.handleSearch} type="text" name='name' placeholder="Search by title or author"/>
+
             </div>
           </div>
           <div className="search-books-results">
