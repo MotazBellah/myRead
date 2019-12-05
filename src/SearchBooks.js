@@ -17,17 +17,30 @@ class SearchBooks extends Component {
       }
     }
 
-    handleCategory = (e) => {
-
-        console.log(e.target);
-    }
+    // handleCategory = (e) => {
+    //
+    //     console.log(e.target);
+    // }
+    //
+    // handleChange = (e) => {
+    //     console.log(e.target.value);
+    //     console.log(e.target['name']);
+    //     // if (this.props.Change){
+    //     //     this.props.Change(e.target.value)
+    //     // }
+    // }
 
     handleChange = (e) => {
+        e.persist()
         console.log(e.target.value);
         console.log(e.target['name']);
-        // if (this.props.Change){
-        //     this.props.Change(e.target.value)
-        // }
+        BooksAPI.get(e.target['name'])
+        .then((book) => {
+            console.log(e.target.value);
+            if(this.props.onUpdateBook) {
+                this.props.onUpdateBook(book, e.target.value)
+            }
+            })
     }
 
     render() {

@@ -33,25 +33,52 @@ class BooksApp extends React.Component {
     })
   }
 
+  // updateBooks = (book, shelf) => {
+  //   BooksAPI.update(book, shelf)
+  //   .then((book) => {
+  //
+  //       let want = this.state.allBooks.filter((c) => (
+  //           book.wantToRead.includes(c.id)
+  //       ))
+  //       let curr = this.state.allBooks.filter((c) => (
+  //           book.currentlyReading.includes(c.id)
+  //       ))
+  //       let red = this.state.allBooks.filter((c) => (
+  //           book.read.includes(c.id)
+  //       ))
+  //
+  //       this.setState(() => ({
+  //           wantToRead: want,
+  //           currentlyReading: curr,
+  //           read: red
+  //       }))
+  //
+  //   })
+  // }
+
   updateBooks = (book, shelf) => {
     BooksAPI.update(book, shelf)
-    .then((book) => {
+    .then((c) => {
+        BooksAPI.getAll()
+        .then((allBooks) => {
 
-        let want = this.state.allBooks.filter((c) => (
-            book.wantToRead.includes(c.id)
-        ))
-        let curr = this.state.allBooks.filter((c) => (
-            book.currentlyReading.includes(c.id)
-        ))
-        let red = this.state.allBooks.filter((c) => (
-            book.read.includes(c.id)
-        ))
+            let curr = allBooks.filter((book) => (
+                book.shelf === 'currentlyReading'
+            ))
+            let want = allBooks.filter((book) => (
+                book.shelf === 'wantToRead'
+            ))
+            let red = allBooks.filter((book) => (
+                book.shelf === 'read'
+            ))
+            this.setState({
+                allBooks: allBooks,
+                currentlyReading: curr,
+                wantToRead: want,
+                read: red,
+            })
 
-        this.setState(() => ({
-            wantToRead: want,
-            currentlyReading: curr,
-            read: red
-        }))
+        })
 
     })
   }
@@ -84,11 +111,15 @@ class BooksApp extends React.Component {
 
     return (
       <div className="app">
-        <Route path='/search' render={() => (
+        <Route path='/search' render={({ history }) => (
             <SearchBooks
                 books={this.state.books}
                 onSearchBook={(book) => {
                     this.SearchBooks(book)
+                }}
+                onUpdateBook={(book, shelf) =>{
+                    this.updateBooks(book, shelf)
+                    history.push('/')
                 }}/>
         )} />
 
