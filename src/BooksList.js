@@ -12,20 +12,19 @@ class BooksList extends Component {
         updateShafle: '',
         currentlyReading: [],
         wantToRead: [],
-        read: [],
-        allBooks: []
+        read: []
     }
 
-    componentDidMount(){
-      BooksAPI.getAll()
-      .then((books) => {
-          console.log(books);
-          console.log(this.state.wantToRead);
-          this.setState({
-              allBooks: books
-          })
-      })
-    }
+    // componentDidMount(){
+    //   BooksAPI.getAll()
+    //   .then((books) => {
+    //       console.log(books);
+    //       console.log(this.state.wantToRead);
+    //       this.setState({
+    //           allBooks: books
+    //       })
+    //   })
+    // }
 
     handleChange = (e) => {
         e.persist()
@@ -34,41 +33,14 @@ class BooksList extends Component {
         BooksAPI.get(e.target['name'])
         .then((book) => {
             console.log(e.target.value);
-            // this.setState({
-            //     updateBook: book,
-            //     updateShafle: e.target.value
-            // })
-            BooksAPI.update(book, e.target.value)
-            .then((book) => {
-                console.log(book)
-                console.log(book.wantToRead)
-                let want = this.state.allBooks.filter((c) => (
-                    book.wantToRead.includes(c.id)
-                ))
-                let curr = this.state.allBooks.filter((c) => (
-                    book.currentlyReading.includes(c.id)
-                ))
-                let red = this.state.allBooks.filter((c) => (
-                    book.read.includes(c.id)
-                ))
-
-                // console.log(want);
-
-                // this.setState({
-                //     wantToRead: want
-                // })
-                this.setState(() => ({
-                    wantToRead: want,
-                    currentlyReading: curr,
-                    read: red
-                }))
-
+            if(this.props.onUpdateBook) {
+                this.props.onUpdateBook(book, e.target.value)
+            }
             })
-        })
     }
     render() {
-        const {allBooks, wantToRead, read , currentlyReading} = this.state
-        // const { allBooks } = this.props
+        // const { wantToRead, read , currentlyReading} = this.state
+        const { allBooks, wantToRead, read, currentlyReading} = this.props
         return(
             <div className="list-books">
               <div className="list-books-title">
