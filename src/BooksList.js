@@ -7,13 +7,13 @@ import serializeForm from 'form-serialize'
 
 
 class BooksList extends Component {
-    state = {
-        updateBook: '',
-        updateShafle: '',
-        currentlyReading: [],
-        wantToRead: [],
-        read: []
-    }
+    // state = {
+    //     updateBook: '',
+    //     updateShafle: '',
+    //     currentlyReading: [],
+    //     wantToRead: [],
+    //     read: []
+    // }
 
     // componentDidMount(){
     //   BooksAPI.getAll()
@@ -52,14 +52,14 @@ class BooksList extends Component {
                     <h2 className="bookshelf-title">Currently Reading</h2>
                     <div className="bookshelf-books">
                       <ol className="books-grid">
-                      {allBooks.map((book) => (
+                      {currentlyReading.map((book) => (
                           <li key={book.id}>
                             <div className="book">
                               <div className="book-top">
                                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                                 <div className="book-shelf-changer">
                                 <form onSubmit={this.handleCategory}>
-                                  <select  name={book.id} onChange={this.handleChange}>
+                                  <select name={book.id} onChange={this.handleChange} defaultValue='currentlyReading'>
                                     <option value="move" disabled>Move to...</option>
                                     <option value="currentlyReading">Currently Reading</option>
                                     <option value="wantToRead">Want to Read</option>
@@ -94,7 +94,7 @@ class BooksList extends Component {
                                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                                 <div className="book-shelf-changer">
                                 <form onSubmit={this.handleCategory}>
-                                  <select  onChange={this.handleChange}>
+                                  <select name={book.id} onChange={this.handleChange} defaultValue='wantToRead'>
                                     <option value="move" disabled>Move to...</option>
                                     <option value="currentlyReading">Currently Reading</option>
                                     <option value="wantToRead">Want to Read</option>
@@ -129,7 +129,7 @@ class BooksList extends Component {
                                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                                 <div className="book-shelf-changer">
                                 <form onSubmit={this.handleCategory}>
-                                  <select  onChange={this.handleChange}>
+                                  <select name={book.id} onChange={this.handleChange} defaultValue='read'>
                                     <option value="move" disabled>Move to...</option>
                                     <option value="currentlyReading">Currently Reading</option>
                                     <option value="wantToRead">Want to Read</option>

@@ -20,8 +20,11 @@ class BooksApp extends React.Component {
     currentlyReading: [],
     wantToRead: [],
     read: [],
-    allBooks: []
+    allBooks: [],
+    b: {},
+    x: 0
   }
+
 
   SearchBooks = (book) => {
     BooksAPI.search(book)
@@ -75,6 +78,7 @@ class BooksApp extends React.Component {
   updateBooks = (book, shelf) => {
     BooksAPI.update(book, shelf)
     .then((book) => {
+        console.log(book);
         let want = this.state.allBooks.filter((c) => (
             book.wantToRead.includes(c.id)
         ))
@@ -84,12 +88,16 @@ class BooksApp extends React.Component {
         let red = this.state.allBooks.filter((c) => (
             book.read.includes(c.id)
         ))
+        // console.log(allBooks);
+        console.log(book.wantToRead);
+        console.log(book.currentlyReading);
+        console.log(book.read);
 
-        this.setState({
-            currentlyReading: curr,
+        this.setState(() => ({
             wantToRead: want,
+            currentlyReading: curr,
             read: red
-        })
+        }))
 
 
         // this.setState((currentState) => ({
@@ -103,7 +111,24 @@ class BooksApp extends React.Component {
   componentDidMount(){
     BooksAPI.getAll()
     .then((allBooks) => {
-        console.log(allBooks)
+        // console.log(allBooks)
+        // console.log(allBooks[0])
+        // console.log(allBooks[0].shelf);
+        let curr = allBooks.filter((book) => (
+            book.shelf === 'currentlyReading'
+        ))
+        let want = allBooks.filter((book) => (
+            book.shelf === 'wantToRead'
+        ))
+        let red = allBooks.filter((book) => (
+            book.shelf === 'read'
+        ))
+        this.setState({
+            allBooks: allBooks,
+            currentlyReading: curr,
+            wantToRead: want,
+            read: red,
+        })
         // BooksAPI.update(allBooks[0], 'move')
         // .then((book) => {
         //     console.log(book);
@@ -123,15 +148,14 @@ class BooksApp extends React.Component {
         //         read: red
         //     })
         // })
-        this.setState({
-            allBooks
-        })
+
 
     })
   }
 
 
   render() {
+
     return (
       <div className="app">
         <Route path='/search' render={() => (
