@@ -20,9 +20,7 @@ class BooksApp extends React.Component {
     currentlyReading: [],
     wantToRead: [],
     read: [],
-    allBooks: [],
-    b: {},
-    x: 0
+    allBooks: []
   }
 
 
@@ -35,50 +33,10 @@ class BooksApp extends React.Component {
     })
   }
 
-  // handleChange = (e) => {
-  //     e.persist()
-  //     console.log(e.target.value);
-  //     console.log(e.target['name']);
-  //     BooksAPI.get(e.target['name'])
-  //     .then((book) => {
-  //         console.log(e.target.value);
-  //         // this.setState({
-  //         //     updateBook: book,
-  //         //     updateShafle: e.target.value
-  //         // })
-  //         BooksAPI.update(book, e.target.value)
-  //         .then((book) => {
-  //             console.log(book)
-  //             console.log(book.wantToRead)
-  //             let want = this.state.allBooks.filter((c) => (
-  //                 book.wantToRead.includes(c.id)
-  //             ))
-  //             let curr = this.state.allBooks.filter((c) => (
-  //                 book.currentlyReading.includes(c.id)
-  //             ))
-  //             let red = this.state.allBooks.filter((c) => (
-  //                 book.read.includes(c.id)
-  //             ))
-  //
-  //             // console.log(want);
-  //
-  //             // this.setState({
-  //             //     wantToRead: want
-  //             // })
-  //             this.setState(() => ({
-  //                 wantToRead: want,
-  //                 currentlyReading: curr,
-  //                 read: red
-  //             }))
-  //
-  //         })
-  //     })
-  // }
-
   updateBooks = (book, shelf) => {
     BooksAPI.update(book, shelf)
     .then((book) => {
-        console.log(book);
+
         let want = this.state.allBooks.filter((c) => (
             book.wantToRead.includes(c.id)
         ))
@@ -88,10 +46,6 @@ class BooksApp extends React.Component {
         let red = this.state.allBooks.filter((c) => (
             book.read.includes(c.id)
         ))
-        // console.log(allBooks);
-        console.log(book.wantToRead);
-        console.log(book.currentlyReading);
-        console.log(book.read);
 
         this.setState(() => ({
             wantToRead: want,
@@ -99,21 +53,13 @@ class BooksApp extends React.Component {
             read: red
         }))
 
-
-        // this.setState((currentState) => ({
-        //     currentlyReading: currentState.currentlyReading.concat([curr]),
-        //     wantToRead: currentState.wantToRead.concat([want]),
-        //     read: currentState.currentlyReading.concat([red])
-        // }))
     })
   }
 
   componentDidMount(){
     BooksAPI.getAll()
     .then((allBooks) => {
-        // console.log(allBooks)
-        // console.log(allBooks[0])
-        // console.log(allBooks[0].shelf);
+
         let curr = allBooks.filter((book) => (
             book.shelf === 'currentlyReading'
         ))
@@ -129,26 +75,6 @@ class BooksApp extends React.Component {
             wantToRead: want,
             read: red,
         })
-        // BooksAPI.update(allBooks[0], 'move')
-        // .then((book) => {
-        //     console.log(book);
-        //     let want = allBooks.filter((c) => (
-        //         book.wantToRead.includes(c.id)
-        //     ))
-        //     let curr = allBooks.filter((c) => (
-        //         book.currentlyReading.includes(c.id)
-        //     ))
-        //     let red = allBooks.filter((c) => (
-        //         book.read.includes(c.id)
-        //     ))
-        //
-        //     this.setState({
-        //         currentlyReading: curr,
-        //         wantToRead: want,
-        //         read: red
-        //     })
-        // })
-
 
     })
   }
