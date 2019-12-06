@@ -2,16 +2,13 @@ import React, { Component } from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import { Link } from 'react-router-dom'
-import { Route } from 'react-router-dom'
-import serializeForm from 'form-serialize'
 
 
 class BooksList extends Component {
 
     handleChange = (e) => {
         e.persist()
-        console.log(e.target.value);
-        console.log(e.target['name']);
+
         BooksAPI.get(e.target['name'])
         .then((book) => {
             console.log(e.target.value);
@@ -21,7 +18,6 @@ class BooksList extends Component {
             })
     }
     render() {
-        // const { wantToRead, read , currentlyReading} = this.state
         const { allBooks, wantToRead, read, currentlyReading} = this.props
         return(
             <div className="list-books">
@@ -40,7 +36,7 @@ class BooksList extends Component {
                               <div className="book-top">
                                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                                 <div className="book-shelf-changer">
-                                <form onSubmit={this.handleCategory}>
+
                                   <select name={book.id} onChange={this.handleChange} defaultValue='currentlyReading'>
                                     <option value="move" disabled>Move to...</option>
                                     <option value="currentlyReading">Currently Reading</option>
@@ -48,7 +44,7 @@ class BooksList extends Component {
                                     <option value="read">Read</option>
                                     <option value="none">None</option>
                                   </select>
-                                </form>
+
                                 </div>
                               </div>
                               <div className="book-title">{book.title}</div>
@@ -75,7 +71,7 @@ class BooksList extends Component {
                               <div className="book-top">
                                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                                 <div className="book-shelf-changer">
-                                <form onSubmit={this.handleCategory}>
+
                                   <select name={book.id} onChange={this.handleChange} defaultValue='wantToRead'>
                                     <option value="move" disabled>Move to...</option>
                                     <option value="currentlyReading">Currently Reading</option>
@@ -83,7 +79,7 @@ class BooksList extends Component {
                                     <option value="read">Read</option>
                                     <option value="none">None</option>
                                   </select>
-                                </form>
+
                                 </div>
                               </div>
                               <div className="book-title">{book.title}</div>
@@ -110,7 +106,7 @@ class BooksList extends Component {
                               <div className="book-top">
                                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                                 <div className="book-shelf-changer">
-                                <form onSubmit={this.handleCategory}>
+
                                   <select name={book.id} onChange={this.handleChange} defaultValue='read'>
                                     <option value="move" disabled>Move to...</option>
                                     <option value="currentlyReading">Currently Reading</option>
@@ -118,7 +114,7 @@ class BooksList extends Component {
                                     <option value="read">Read</option>
                                     <option value="none">None</option>
                                   </select>
-                                </form>
+                                
                                 </div>
                               </div>
                               <div className="book-title">{book.title}</div>

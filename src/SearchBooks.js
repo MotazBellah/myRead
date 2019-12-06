@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import { Link } from 'react-router-dom'
-import { Route } from 'react-router-dom'
-import serializeForm from 'form-serialize'
+
 
 class SearchBooks extends Component {
     state = {
@@ -11,7 +10,6 @@ class SearchBooks extends Component {
     }
 
     handleSearch = (e) => {
-      console.log(e.target.value)
 
         if(this.props.onSearchBook) {
               this.props.onSearchBook(e.target.value)
@@ -43,17 +41,7 @@ class SearchBooks extends Component {
           <div className="search-books-bar">
             <Link to="/" className="close-search">Close</Link>
             <div className="search-books-input-wrapper">
-              {/*
-                NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                You can find these search terms here:
-                https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                you don't find a specific author or title. Every search is limited by search terms.
-              */}
-
-                <input  onChange={this.handleSearch} type="text" name='name' placeholder="Search by title or author"/>
-
+            <input  onChange={this.handleSearch} type="text" name='name' placeholder="Search by title or author"/>
             </div>
           </div>
           <div className="search-books-results">
@@ -69,7 +57,6 @@ class SearchBooks extends Component {
                         }
 
                           <div className="book-shelf-changer">
-                          <form onSubmit={this.handleCategory}>
 
                             <select name={book.id} onChange={this.handleChange} defaultValue={(shelfType[book.id] ? shelfType[book.id]: "none")}>
                               <option value="move" disabled>Move to...</option>
@@ -78,7 +65,6 @@ class SearchBooks extends Component {
                               <option value="read">Read</option>
                               <option value="none">None</option>
                             </select>
-                          </form>
                           </div>
                         </div>
                         <div className="book-title">{book.title}</div>
