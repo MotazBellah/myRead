@@ -8,17 +8,15 @@ class BooksList extends Component {
 
     handleChange = (e) => {
         e.persist()
-
         BooksAPI.get(e.target['name'])
         .then((book) => {
-            console.log(e.target.value);
             if(this.props.onUpdateBook) {
                 this.props.onUpdateBook(book, e.target.value)
             }
             })
     }
     render() {
-        const { allBooks, wantToRead, read, currentlyReading} = this.props
+        const { wantToRead, read, currentlyReading} = this.props
         return(
             <div className="list-books">
               <div className="list-books-title">
@@ -114,7 +112,7 @@ class BooksList extends Component {
                                     <option value="read">Read</option>
                                     <option value="none">None</option>
                                   </select>
-                                
+
                                 </div>
                               </div>
                               <div className="book-title">{book.title}</div>

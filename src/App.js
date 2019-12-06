@@ -18,7 +18,6 @@ class BooksApp extends React.Component {
   SearchBooks = (book) => {
     BooksAPI.search(book)
     .then((book) => {
-
         this.setState({
             books: book
         })
@@ -56,7 +55,7 @@ class BooksApp extends React.Component {
   componentDidMount(){
     BooksAPI.getAll()
     .then((allBooks) => {
-        console.log(allBooks);
+
         let currentlyReading = allBooks.filter((book) => (
             book.shelf === 'currentlyReading'
         ))
@@ -97,7 +96,6 @@ class BooksApp extends React.Component {
 
         <Route exact path='/' render={() => (
             <BooksList
-                allBooks={this.state.allBooks}
                 currentlyReading={this.state.currentlyReading}
                 wantToRead={this.state.wantToRead}
                 read={this.state.read}
