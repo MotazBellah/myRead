@@ -6,36 +6,21 @@ import { Route } from 'react-router-dom'
 import serializeForm from 'form-serialize'
 
 class SearchBooks extends Component {
+    state = {
+        shelfType : {}
+    }
 
     handleSearch = (e) => {
-      // e.preventDefault()
-      // const value = serializeForm(e.target, {hash:true})
       console.log(e.target.value)
 
-      // console.log(BooksAPI.search(value.name))
         if(this.props.onSearchBook) {
               this.props.onSearchBook(e.target.value)
       }
 
     }
 
-    // handleCategory = (e) => {
-    //
-    //     console.log(e.target);
-    // }
-    //
-    // handleChange = (e) => {
-    //     console.log(e.target.value);
-    //     console.log(e.target['name']);
-    //     // if (this.props.Change){
-    //     //     this.props.Change(e.target.value)
-    //     // }
-    // }
-
     handleChange = (e) => {
         e.persist()
-        console.log(e.target.value);
-        console.log(e.target['name']);
         BooksAPI.get(e.target['name'])
         .then((book) => {
             console.log(e.target.value);
@@ -46,7 +31,13 @@ class SearchBooks extends Component {
     }
 
     render() {
-        const { books, currentlyReading, wantToRead, read } = this.props
+        const { shelfType } = this.state
+        const { books, currentlyReading, wantToRead, read, allBooks } = this.props
+
+        allBooks.map((book) => (
+            shelfType[book.id] = book.shelf
+        ))
+
         return(
         <div className="search-books">
           <div className="search-books-bar">
@@ -74,7 +65,8 @@ class SearchBooks extends Component {
                           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                           <div className="book-shelf-changer">
                           <form onSubmit={this.handleCategory}>
-                            <select name={book.id} onChange={this.handleChange} defaultValue="move">
+
+                            <select name={book.id} onChange={this.handleChange} defaultValue={(shelfType[book.id] ? shelfType[book.id]: "none")}>
                               <option value="move" disabled>Move to...</option>
                               <option value="currentlyReading">Currently Reading</option>
                               <option value="wantToRead">Want to Read</option>

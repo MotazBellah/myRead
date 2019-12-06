@@ -7,24 +7,6 @@ import serializeForm from 'form-serialize'
 
 
 class BooksList extends Component {
-    // state = {
-    //     updateBook: '',
-    //     updateShafle: '',
-    //     currentlyReading: [],
-    //     wantToRead: [],
-    //     read: []
-    // }
-
-    // componentDidMount(){
-    //   BooksAPI.getAll()
-    //   .then((books) => {
-    //       console.log(books);
-    //       console.log(this.state.wantToRead);
-    //       this.setState({
-    //           allBooks: books
-    //       })
-    //   })
-    // }
 
     handleChange = (e) => {
         e.persist()
