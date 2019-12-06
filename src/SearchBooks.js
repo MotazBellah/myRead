@@ -32,7 +32,7 @@ class SearchBooks extends Component {
 
     render() {
         const { shelfType } = this.state
-        const { books, currentlyReading, wantToRead, read, allBooks } = this.props
+        const { books, allBooks } = this.props
 
         allBooks.map((book) => (
             shelfType[book.id] = book.shelf
