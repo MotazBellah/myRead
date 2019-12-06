@@ -4,9 +4,9 @@ It is a bookshelf app that allows the user to select and categorize books that h
 
 ## Getting Started
 
-- run git clone https://github.com/MotazBellah/myRead.git to clone this repository
-- cd MyReads then run npm install
-- npm start to start the app then navigate to http://localhost:3000/ on your local machine
+- run `git clone https://github.com/MotazBellah/myRead.git` to clone this repository
+- cd MyReads then run `npm install`
+- `npm start` to start the app then navigate to http://localhost:3000/ on your local machine
 
 
 ## Backend Server
