@@ -95,7 +95,9 @@ class BooksApp extends React.Component {
                 books={this.state.books}
                 allBooks={this.state.allBooks}
                 onSearchBook={(book) => {
-                    this.SearchBooks(book)
+                    if(book.length > 0){
+                        this.SearchBooks(book)
+                    }    
                 }}
                 onUpdateBook={(book, shelf) =>{
                     this.updateBooks(book, shelf)
