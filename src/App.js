@@ -5,25 +5,31 @@ import { Route } from 'react-router-dom'
 import SearchBooks from './SearchBooks'
 import BooksList from './BooksList'
 
+
+
 class BooksApp extends React.Component {
   state = {
     books: [],
-    currentlyReading: [],
-    wantToRead: [],
-    read: [],
     allBooks: []
   }
 
 
   SearchBooks = (book) => {
-    BooksAPI.search(book)
-    .then((book) => {
-        console.log(book.error)
-        this.setState({
-            books: book.error ? book.items : book
+    if (book){
+        BooksAPI.search(book)
+        .then((book) => {
+
+            this.setState({
+                books: book.error  ? [] : book
+            })
         })
-    })
-  }
+    } else {
+        this.setState({
+            books: []
+        })
+    }
+
+}
 
 
   updateBooks = (book, shelf) => {
@@ -32,20 +38,8 @@ class BooksApp extends React.Component {
         BooksAPI.getAll()
         .then((allBooks) => {
 
-            let currentlyReading = allBooks.filter((book) => (
-                book.shelf === 'currentlyReading'
-            ))
-            let wantToRead = allBooks.filter((book) => (
-                book.shelf === 'wantToRead'
-            ))
-            let read = allBooks.filter((book) => (
-                book.shelf === 'read'
-            ))
             this.setState({
                 allBooks: allBooks,
-                currentlyReading: currentlyReading,
-                wantToRead: wantToRead,
-                read: read,
             })
 
         })
@@ -57,20 +51,9 @@ class BooksApp extends React.Component {
     BooksAPI.getAll()
     .then((allBooks) => {
 
-        let currentlyReading = allBooks.filter((book) => (
-            book.shelf === 'currentlyReading'
-        ))
-        let wantToRead = allBooks.filter((book) => (
-            book.shelf === 'wantToRead'
-        ))
-        let read = allBooks.filter((book) => (
-            book.shelf === 'read'
-        ))
         this.setState({
             allBooks: allBooks,
-            currentlyReading: currentlyReading,
-            wantToRead: wantToRead,
-            read: read,
+
         })
 
     })
@@ -86,9 +69,10 @@ class BooksApp extends React.Component {
                 books={this.state.books}
                 allBooks={this.state.allBooks}
                 onSearchBook={(book) => {
-                    if(book.length > 0){
+                    console.log(book);
+
                         this.SearchBooks(book)
-                    }
+
                 }}
                 onUpdateBook={(book, shelf) =>{
                     this.updateBooks(book, shelf)
@@ -96,6 +80,7 @@ class BooksApp extends React.Component {
         )} />
 
         <Route exact path='/' render={() => (
+
             <BooksList
                 currentlyReading={this.state.allBooks.filter((book) => (
                     book.shelf === 'currentlyReading'
