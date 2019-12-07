@@ -97,9 +97,15 @@ class BooksApp extends React.Component {
 
         <Route exact path='/' render={() => (
             <BooksList
-                currentlyReading={this.state.currentlyReading}
-                wantToRead={this.state.wantToRead}
-                read={this.state.read}
+                currentlyReading={this.state.allBooks.filter((book) => (
+                    book.shelf === 'currentlyReading'
+                ))}
+                wantToRead={this.state.allBooks.filter((book) => (
+                    book.shelf === 'wantToRead'
+                ))}
+                read={this.state.allBooks.filter((book) => (
+                    book.shelf === 'read'
+                ))}
                 onUpdateBook={(book, shelf) =>{
                     this.updateBooks(book, shelf)
                 }}/>
