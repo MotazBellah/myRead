@@ -18,8 +18,9 @@ class BooksApp extends React.Component {
   SearchBooks = (book) => {
     BooksAPI.search(book)
     .then((book) => {
+        console.log(book.error)
         this.setState({
-            books: book
+            books: book.error ? book.items : book
         })
     })
   }
