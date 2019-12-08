@@ -5,6 +5,6 @@ import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.render(
-    <BrowserRouter>
+    <BrowserRouter basename="/myRead">
         <App />
     </BrowserRouter>, document.getElementById('root'))
