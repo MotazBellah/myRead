@@ -79,7 +79,7 @@ class BooksApp extends React.Component {
                 }}/>
         )} />
 
-        <Route  path='/' render={() => (
+        <Route exact path='/' render={() => (
 
             <BooksList
                 currentlyReading={this.state.allBooks.filter((book) => (
